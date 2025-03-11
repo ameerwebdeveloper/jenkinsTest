@@ -12,16 +12,17 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ameerwebdeveloper/jenkinsTest.git'
             }
         }
-        stage('Install Dependencies') {
+        
+        stage('Set Playwright Permissions') {
             steps {
-                echo 'Installing Playwright dependencies...'
-                sh 'npm install'
-                sh 'npx playwright install'
+                echo 'Setting execute permissions for Playwright...'
+                sh 'chmod +x node_modules/.bin/playwright'
             }
         }
-        stage('Run Playwright Tests') {
+
+        stage('Run Playwright Test') {
             steps {
-                echo 'Running Playwright test TestUrl.spec.js...'
+                echo 'Running Playwright test: TestUrl.spec.js'
                 sh '''
                     export TEST_URL=${TEST_URL}
                     export BROWSER_TYPE=${BROWSER_TYPE}
